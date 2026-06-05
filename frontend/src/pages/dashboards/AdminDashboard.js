@@ -25,8 +25,10 @@ const AdminDashboard = () => {
         <div className="sidebar-menu">
           <span className="menu-label">Main</span>
           <div className="menu-item active"><span className="menu-icon">🏠</span> Dashboard</div>
-          <div className="menu-item"><span className="menu-icon">🏢</span> Companies</div>
           <div className="menu-item"><span className="menu-icon">👥</span> Users</div>
+          <div className="menu-item" onClick={() => navigate('/admin/companies')}>
+  <span className="menu-icon">🏢</span> Companies
+</div>
 
           <span className="menu-label">Recruitment</span>
           <div className="menu-item"><span className="menu-icon">🎯</span> Drives</div>
