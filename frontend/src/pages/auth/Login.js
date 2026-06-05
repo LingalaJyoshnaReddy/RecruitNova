@@ -59,11 +59,11 @@ const Login = () => {
 
       {/* Left Panel */}
       <div className="login-left">
-        <div className="brand-block">
-          <div className="brand-logo">
+        <div className="brand-block d-flex align-items-center mb-4 ">
+          <div className="brand-logo me-3">
             <span className="logo-icon">⚡</span>
           </div>
-          <h1 className="brand-name">RecruitNova</h1>
+          <h1 className="brand-name m-0">RecruitNova</h1>
         </div>
         <div className="feature-list">
           <div className="feature-item">
