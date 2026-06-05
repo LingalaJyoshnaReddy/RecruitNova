@@ -12,6 +12,16 @@ const AuthService = {
     return response.data;
   },
 
+  register: async (formData) => {
+    const response = await axios.post(`${API_URL}/register`, {
+      full_name: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      password: formData.password
+    });
+    return response.data;
+  },
+
   logout: () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
