@@ -8,6 +8,14 @@ import HRDashboard from './pages/dashboards/HRDashboard';
 import RecruiterDashboard from './pages/dashboards/RecruiterDashboard';
 import CandidateDashboard from './pages/dashboards/CandidateDashboard';
 
+// Protected Route
+const ProtectedRoute = ({ element, allowedRole }) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user) return <Navigate to="/login" />;
+  if (user.role !== allowedRole) return <Navigate to="/login" />;
+  return element;
+};
+
 function App() {
   return (
     <Router>
@@ -16,10 +24,10 @@ function App() {
         <Route path="/login"               element={<Login />} />
         <Route path="/register"            element={<Register />} />
         <Route path="/forgot-password"     element={<ForgotPassword />} />
-        <Route path="/admin/dashboard"     element={<AdminDashboard />} />
-        <Route path="/hr/dashboard"        element={<HRDashboard />} />
-        <Route path="/recruiter/dashboard" element={<RecruiterDashboard />} />
-        <Route path="/candidate/dashboard" element={<CandidateDashboard />} />
+        <Route path="/admin/dashboard"     element={<ProtectedRoute element={<AdminDashboard />}     allowedRole="super_admin" />} />
+        <Route path="/hr/dashboard"        element={<ProtectedRoute element={<HRDashboard />}        allowedRole="hr_admin" />} />
+        <Route path="/recruiter/dashboard" element={<ProtectedRoute element={<RecruiterDashboard />} allowedRole="recruiter" />} />
+        <Route path="/candidate/dashboard" element={<ProtectedRoute element={<CandidateDashboard />} allowedRole="candidate" />} />
       </Routes>
     </Router>
   );

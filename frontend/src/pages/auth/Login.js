@@ -3,11 +3,19 @@ import { useNavigate, Link } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
 import './Login.css';
 
+const roles = [
+  { id: 'super_admin',  label: 'Super Admin',       icon: '👑' },
+  { id: 'hr_admin',     label: 'HR Admin',           icon: '🧑‍💼' },
+  { id: 'recruiter',    label: 'Company Recruiter',  icon: '🎯' },
+  { id: 'candidate',    label: 'Candidate',          icon: '👤' },
+];
+
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError]       = useState('');
-  const [loading, setLoading]   = useState(false);
-  const navigate                = useNavigate();
+  const [selectedRole, setSelectedRole] = useState('');
+  const [formData, setFormData]         = useState({ email: '', password: '' });
+  const [error, setError]               = useState('');
+  const [loading, setLoading]           = useState(false);
+  const navigate                        = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,16 +24,29 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!selectedRole) {
+      setError('Please select your role first');
+      return;
+    }
     setLoading(true);
     setError('');
 
     try {
       const data = await AuthService.login(formData.email, formData.password);
       const role = data.user?.role;
+
+      // Check if selected role matches actual role
+      if (role !== selectedRole) {
+        setError('Selected role does not match your account role');
+        setLoading(false);
+        return;
+      }
+
       if (role === 'super_admin')    navigate('/admin/dashboard');
       else if (role === 'hr_admin')  navigate('/hr/dashboard');
       else if (role === 'recruiter') navigate('/recruiter/dashboard');
       else                           navigate('/candidate/dashboard');
+
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid email or password');
     } finally {
@@ -66,7 +87,24 @@ const Login = () => {
         <div className="login-card">
           <div className="login-header">
             <h2>Welcome back</h2>
-            <p>Sign in to your account to continue</p>
+            <p>Select your role and sign in to continue</p>
+          </div>
+
+          {/* Role Selection */}
+          <div className="role-selection">
+            <p className="role-label">I am a:</p>
+            <div className="role-grid">
+              {roles.map((role) => (
+                <div
+                  key={role.id}
+                  className={`role-card ${selectedRole === role.id ? 'role-card-active' : ''}`}
+                  onClick={() => { setSelectedRole(role.id); setError(''); }}
+                >
+                  <span className="role-icon">{role.icon}</span>
+                  <span className="role-name">{role.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {error && (
@@ -93,9 +131,7 @@ const Login = () => {
             <div className="form-group">
               <div className="label-row">
                 <label htmlFor="password">Password</label>
-                <Link to="/forgot-password" className="forgot-link">
-                  Forgot password?
-                </Link>
+                <Link to="/forgot-password" className="forgot-link">Forgot password?</Link>
               </div>
               <input
                 type="password"
@@ -110,11 +146,7 @@ const Login = () => {
             </div>
 
             <button type="submit" className="login-btn" disabled={loading}>
-              {loading ? (
-                <span className="spinner"></span>
-              ) : (
-                'Sign In'
-              )}
+              {loading ? <span className="spinner"></span> : 'Sign In'}
             </button>
           </form>
 
@@ -122,12 +154,8 @@ const Login = () => {
             New candidate? <Link to="/register">Create an account</Link>
           </p>
 
-          <div className="role-hint">
-            <span>Roles: Super Admin · HR Admin · Recruiter · Candidate</span>
-          </div>
         </div>
       </div>
-
     </div>
   );
 };

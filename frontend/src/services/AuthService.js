@@ -15,9 +15,9 @@ const AuthService = {
   register: async (formData) => {
     const response = await axios.post(`${API_URL}/register`, {
       full_name: formData.fullName,
-      email: formData.email,
-      phone: formData.phone,
-      password: formData.password
+      email:     formData.email,
+      phone:     formData.phone,
+      password:  formData.password
     });
     return response.data;
   },
@@ -33,6 +33,10 @@ const AuthService = {
 
   getToken: () => {
     return localStorage.getItem('token');
+  },
+
+  isLoggedIn: () => {
+    return !!localStorage.getItem('token');
   }
 };
 
