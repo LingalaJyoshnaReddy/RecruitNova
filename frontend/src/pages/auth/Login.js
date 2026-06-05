@@ -64,7 +64,7 @@ const Login = () => {
             <span className="logo-icon">⚡</span>
           </div>
           <h1 className="brand-name">RecruitNova</h1>
-          <p className="brand-tagline">Intelligent hiring, powered by AI</p>
+          <p className="brand-tagline">Intelligent hiring</p>
         </div>
         <div className="feature-list">
           <div className="feature-item">
