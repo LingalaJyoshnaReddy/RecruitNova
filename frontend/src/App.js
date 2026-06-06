@@ -14,6 +14,10 @@ import CompanyList from './pages/company/CompanyList';
 import UsersList from './pages/admin/UsersList';
 import CompanyProfile from './pages/company/CompanyProfile';
 import AddCompany from './pages/company/AddCompany';
+import DrivesList       from './pages/drives/DrivesList';
+import JobsList         from './pages/jobs/JobsList';
+import ApplicationsList from './pages/applications/ApplicationsList';
+import InterviewsList   from './pages/interviews/InterviewsList';
 
 // 1. ADDED IMPORT FOR THE NEW ROLES FILE HERE
 import RolesList from './pages/admin/RolesList';
@@ -57,6 +61,10 @@ function App() {
         <Route path="/admin/users" element={<ProtectedRoute element={<UsersList />} allowedRole="super_admin" />} />
         <Route path="/admin/companies/add" element={<ProtectedRoute element={<AddCompany />} allowedRole="super_admin" />} />
         <Route path="/admin/companies/:id" element={<ProtectedRoute element={<CompanyProfile />} allowedRole="super_admin" />} />
+        <Route path="/drives"       element={<AuthRoute element={<DrivesList />} />} />
+        <Route path="/jobs"         element={<AuthRoute element={<JobsList />} />} />
+       <Route path="/applications" element={<AuthRoute element={<ApplicationsList />} />} />
+       <Route path="/interviews"   element={<AuthRoute element={<InterviewsList />} />} />
       </Routes>
     </Router>
   );
