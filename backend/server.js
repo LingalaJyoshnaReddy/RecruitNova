@@ -21,6 +21,10 @@ app.use('/api', authRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/roles',       require('./routes/rolesRoutes'));
 app.use('/api/permissions', require('./routes/permissionsRoutes'));
+app.use('/api/drives',       require('./routes/drivesRoutes'));
+app.use('/api/jobs',         require('./routes/jobsRoutes'));
+app.use('/api/applications', require('./routes/applicationsRoutes'));
+app.use('/api/interviews',   require('./routes/interviewsRoutes'));
 
 // Test Route
 app.get('/', (req, res) => {
