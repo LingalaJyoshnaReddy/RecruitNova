@@ -59,7 +59,7 @@ const Profile = () => {
   return (
     <div className="profile-wrapper">
       <div className="profile-left">
-        <div className="brand-block">
+        <div className="brand-block d-flex align-items-center">
           <div className="brand-logo me-3"><span>⚡</span></div>
           <h1 className="brand-name m-0">RecruitNova</h1>
         </div>
