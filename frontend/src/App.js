@@ -11,6 +11,12 @@ import HRDashboard from './pages/dashboards/HRDashboard';
 import RecruiterDashboard from './pages/dashboards/RecruiterDashboard';
 import CandidateDashboard from './pages/dashboards/CandidateDashboard';
 import CompanyList from './pages/company/CompanyList';
+import UsersList from './pages/admin/UsersList';
+import CompanyProfile from './pages/company/CompanyProfile';
+import AddCompany from './pages/company/AddCompany';
+
+// 1. ADDED IMPORT FOR THE NEW ROLES FILE HERE
+import RolesList from './pages/admin/RolesList';
 
 const ProtectedRoute = ({ element, allowedRole }) => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -36,11 +42,21 @@ function App() {
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/change-password"       element={<AuthRoute element={<ChangePassword />} />} />
         <Route path="/profile"               element={<AuthRoute element={<Profile />} />} />
+        
+        {/* Admin Specific Protected Routes */}
         <Route path="/admin/dashboard"       element={<ProtectedRoute element={<AdminDashboard />}     allowedRole="super_admin" />} />
         <Route path="/admin/companies"       element={<ProtectedRoute element={<CompanyList />}        allowedRole="super_admin" />} />
+        
+        {/* 2. ADDED THE NEW ROLES & PERMISSIONS ROUTE HERE */}
+        <Route path="/admin/roles"           element={<ProtectedRoute element={<RolesList />}          allowedRole="super_admin" />} />
+        
+        {/* Other Dashboards */}
         <Route path="/hr/dashboard"          element={<ProtectedRoute element={<HRDashboard />}        allowedRole="hr_admin" />} />
-        <Route path="/recruiter/dashboard"   element={<ProtectedRoute element={<RecruiterDashboard />} allowedRole="recruiter" />} />
-        <Route path="/candidate/dashboard"   element={<ProtectedRoute element={<CandidateDashboard />} allowedRole="candidate" />} />
+        <Route path="/recruiter/dashboard"   element={<ProtectedRoute element={<RecruiterDashboard />} allowedRole="recruiter" />}/>
+        <Route path="/candidate/dashboard"   element={<ProtectedRoute element={<CandidateDashboard />} allowedRole="candidate" />}/>
+        <Route path="/admin/users" element={<ProtectedRoute element={<UsersList />} allowedRole="super_admin" />} />
+        <Route path="/admin/companies/add" element={<ProtectedRoute element={<AddCompany />} allowedRole="super_admin" />} />
+        <Route path="/admin/companies/:id" element={<ProtectedRoute element={<CompanyProfile />} allowedRole="super_admin" />} />
       </Routes>
     </Router>
   );

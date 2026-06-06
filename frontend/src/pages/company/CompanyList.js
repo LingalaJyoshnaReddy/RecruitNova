@@ -4,23 +4,21 @@ import CompanyService from '../../services/CompanyService';
 import './CompanyList.css';
 
 const CompanyList = () => {
-  const [companies, setCompanies] = useState([]);
-  const [loading, setLoading]     = useState(true);
-  const [error, setError]         = useState('');
-  const [search, setSearch]       = useState('');
-  const [showAdd, setShowAdd]     = useState(false);
-  const [formData, setFormData]   = useState({
+  const [companies,    setCompanies]    = useState([]);
+  const [loading,      setLoading]      = useState(true);
+  const [error,        setError]        = useState('');
+  const [search,       setSearch]       = useState('');
+  const [showAdd,      setShowAdd]      = useState(false);
+  const [formData,     setFormData]     = useState({
     name: '', email: '', phone: '',
     website: '', industry: '', location: '', description: ''
   });
-  const [formError, setFormError]     = useState('');
-  const [formSuccess, setFormSuccess] = useState('');
-  const navigate                      = useNavigate();
-  const user                          = JSON.parse(localStorage.getItem('user'));
+  const [formError,    setFormError]    = useState('');
+  const [formSuccess,  setFormSuccess]  = useState('');
+  const navigate = useNavigate();
+  const user     = JSON.parse(localStorage.getItem('user'));
 
-  useEffect(() => {
-    fetchCompanies();
-  }, []);
+  useEffect(() => { fetchCompanies(); }, []);
 
   const fetchCompanies = async () => {
     try {
@@ -83,7 +81,7 @@ const CompanyList = () => {
   return (
     <div className="dashboard-layout">
 
-      {/* Sidebar */}
+      {/* ── SIDEBAR ── */}
       <div className="sidebar">
         <div className="sidebar-brand">
           <div className="sidebar-logo">⚡</div>
@@ -97,14 +95,18 @@ const CompanyList = () => {
           <div className="menu-item active">
             <span className="menu-icon">🏢</span> Companies
           </div>
-          <div className="menu-item"><span className="menu-icon">👥</span> Users</div>
+          <div className="menu-item" onClick={() => navigate('/admin/users')}>
+            <span className="menu-icon">👥</span> Users
+          </div>
           <span className="menu-label">Recruitment</span>
           <div className="menu-item"><span className="menu-icon">🎯</span> Drives</div>
           <div className="menu-item"><span className="menu-icon">💼</span> Jobs</div>
           <div className="menu-item"><span className="menu-icon">👤</span> Candidates</div>
           <span className="menu-label">System</span>
+          <div className="menu-item" onClick={() => navigate('/admin/roles')}>
+            <span className="menu-icon">🔐</span> Roles & Permissions
+          </div>
           <div className="menu-item"><span className="menu-icon">📊</span> Reports</div>
-          <div className="menu-item"><span className="menu-icon">🔔</span> Notifications</div>
         </div>
         <div className="sidebar-footer">
           <div className="user-info">
@@ -118,7 +120,7 @@ const CompanyList = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* ── MAIN CONTENT ── */}
       <div className="main-content">
         <div className="page-header">
           <div className="header-row">
@@ -132,7 +134,7 @@ const CompanyList = () => {
           </div>
         </div>
 
-        {/* Add Company Form */}
+        {/* ── ADD COMPANY FORM ── */}
         {showAdd && (
           <div className="add-form-card">
             <h3 className="card-title">Add New Company</h3>
@@ -189,7 +191,7 @@ const CompanyList = () => {
           </div>
         )}
 
-        {/* Search */}
+        {/* ── SEARCH BAR ── */}
         <div className="search-bar">
           <input
             className="search-input"
@@ -200,7 +202,7 @@ const CompanyList = () => {
           <span className="total-count">{filtered.length} Companies</span>
         </div>
 
-        {/* Company Table */}
+        {/* ── COMPANY TABLE ── */}
         {loading ? (
           <div className="loading">Loading companies...</div>
         ) : error ? (
@@ -220,46 +222,58 @@ const CompanyList = () => {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((company, index) => (
-                  <tr key={company.id}>
-                    <td>{index + 1}</td>
-                    <td>
-                      <div className="company-name">{company.name}</div>
-                      <div className="company-web">{company.website}</div>
-                    </td>
-                    <td>{company.industry || '—'}</td>
-                    <td>{company.location || '—'}</td>
-                    <td>{company.email}</td>
-                    <td>
-                      <span className={`badge ${
-                        company.status === 'verified' ? 'badge-green' :
-                        company.status === 'pending'  ? 'badge-yellow' : 'badge-red'
-                      }`}>
-                        {company.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="action-btns">
-                        {company.status === 'pending' && (
-                          <button className="verify-btn"
-                            onClick={() => handleVerify(company.id, 'verified')}>
-                            ✅ Verify
-                          </button>
-                        )}
-                        {company.status === 'verified' && (
-                          <button className="reject-btn"
-                            onClick={() => handleVerify(company.id, 'rejected')}>
-                            ❌ Reject
-                          </button>
-                        )}
-                        <button className="delete-btn"
-                          onClick={() => handleDelete(company.id)}>
-                          🗑️ Delete
-                        </button>
-                      </div>
+                {filtered.length === 0 ? (
+                  <tr>
+                    <td colSpan="7" style={{ textAlign:'center', color:'#4b5563', padding:'40px' }}>
+                      No companies found
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  filtered.map((company, index) => (
+                    <tr key={company.id}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <div className="company-name">{company.name}</div>
+                        <div className="company-web">{company.website}</div>
+                      </td>
+                      <td>{company.industry || '—'}</td>
+                      <td>{company.location  || '—'}</td>
+                      <td>{company.email}</td>
+                      <td>
+                        <span className={`badge ${
+                          company.status === 'verified' ? 'badge-green' :
+                          company.status === 'pending'  ? 'badge-yellow' : 'badge-red'
+                        }`}>
+                          {company.status}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="action-btns">
+                          <button className="view-btn"
+                            onClick={() => navigate(`/admin/companies/${company.id}`)}>
+                            👁️ View
+                          </button>
+                          {company.status === 'pending' && (
+                            <button className="verify-btn"
+                              onClick={() => handleVerify(company.id, 'verified')}>
+                              ✅ Verify
+                            </button>
+                          )}
+                          {company.status === 'verified' && (
+                            <button className="reject-btn"
+                              onClick={() => handleVerify(company.id, 'rejected')}>
+                              ❌ Reject
+                            </button>
+                          )}
+                          <button className="delete-btn"
+                            onClick={() => handleDelete(company.id)}>
+                            🗑️ Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

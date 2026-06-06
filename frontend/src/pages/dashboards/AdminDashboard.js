@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const user     = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
+  const [stats, setStats] = useState({ companies: 0, users: 0, roles: 0, permissions: 0 });
+
+  useEffect(() => {
+    // Fetch companies count
+    fetch('http://localhost:5000/api/companies')
+      .then(r => r.json())
+      .then(data => setStats(prev => ({ ...prev, companies: data.length })))
+      .catch(() => {});
+
+    // Fetch roles count
+    fetch('http://localhost:5000/api/roles')
+      .then(r => r.json())
+      .then(data => setStats(prev => ({ ...prev, roles: data.length })))
+      .catch(() => {});
+
+    // Fetch permissions count
+    fetch('http://localhost:5000/api/permissions')
+      .then(r => r.json())
+      .then(data => setStats(prev => ({ ...prev, permissions: data.length })))
+      .catch(() => {});
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -15,7 +36,7 @@ const AdminDashboard = () => {
   return (
     <div className="dashboard-layout">
 
-      {/* Sidebar */}
+      {/* ── SIDEBAR ── */}
       <div className="sidebar">
         <div className="sidebar-brand">
           <div className="sidebar-logo">⚡</div>
@@ -24,11 +45,15 @@ const AdminDashboard = () => {
 
         <div className="sidebar-menu">
           <span className="menu-label">Main</span>
-          <div className="menu-item active"><span className="menu-icon">🏠</span> Dashboard</div>
-          <div className="menu-item"><span className="menu-icon">👥</span> Users</div>
+          <div className="menu-item active" onClick={() => navigate('/admin/dashboard')}>
+            <span className="menu-icon">🏠</span> Dashboard
+          </div>
           <div className="menu-item" onClick={() => navigate('/admin/companies')}>
-  <span className="menu-icon">🏢</span> Companies
-</div>
+            <span className="menu-icon">🏢</span> Companies
+          </div>
+          <div className="menu-item" onClick={() => navigate('/admin/users')}>
+            <span className="menu-icon">👥</span> Users
+          </div>
 
           <span className="menu-label">Recruitment</span>
           <div className="menu-item"><span className="menu-icon">🎯</span> Drives</div>
@@ -36,16 +61,19 @@ const AdminDashboard = () => {
           <div className="menu-item"><span className="menu-icon">👤</span> Candidates</div>
 
           <span className="menu-label">System</span>
-          <div className="menu-item"><span className="menu-icon">📊</span> Reports</div>
-          <div className="menu-item"><span className="menu-icon">🔔</span> Notifications</div>
-          <div className="menu-item"><span className="menu-icon">📋</span> Activity Logs</div>
+          <div className="menu-item" onClick={() => navigate('/admin/roles')}>
+            <span className="menu-icon">🔐</span> Roles & Permissions
+          </div>
+          <div className="menu-item">
+            <span className="menu-icon">📊</span> Reports
+          </div>
         </div>
 
         <div className="sidebar-footer">
           <div className="user-info">
             <div className="user-avatar">SA</div>
             <div>
-              <div className="user-name">{user?.full_name || 'Super Admin'}</div>
+              <div className="user-name">{user?.full_name || 'Admin'}</div>
               <div className="user-role">Super Admin</div>
             </div>
           </div>
@@ -53,99 +81,119 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* ── MAIN CONTENT ── */}
       <div className="main-content">
+
+        {/* Header */}
         <div className="page-header">
-          <h1 className="page-title">Super Admin Dashboard</h1>
-          <p className="page-subtitle">Welcome back, {user?.full_name}! Here's what's happening.</p>
+          <h1 className="page-title">Admin Dashboard</h1>
+          <p className="page-subtitle">Welcome back, {user?.full_name || 'Administrator'}. Here's your system overview.</p>
         </div>
 
-        {/* Stats */}
+        {/* Stats Cards */}
         <div className="stats-grid">
           <div className="stat-card">
             <div className="stat-icon">🏢</div>
-            <div className="stat-value">12</div>
+            <div className="stat-value">{stats.companies}</div>
             <div className="stat-label">Total Companies</div>
-            <div className="stat-change">↑ 2 this month</div>
+            <div className="stat-change">↑ Active</div>
           </div>
           <div className="stat-card">
             <div className="stat-icon">👥</div>
-            <div className="stat-value">48</div>
-            <div className="stat-label">Total Recruiters</div>
-            <div className="stat-change">↑ 5 this month</div>
+            <div className="stat-value">{stats.users}</div>
+            <div className="stat-label">Total Users</div>
+            <div className="stat-change">↑ Registered</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">🎯</div>
-            <div className="stat-value">8</div>
-            <div className="stat-label">Active Drives</div>
-            <div className="stat-change">↑ 3 this week</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">💼</div>
-            <div className="stat-value">34</div>
-            <div className="stat-label">Active Jobs</div>
-            <div className="stat-change">↑ 8 this week</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">📄</div>
-            <div className="stat-value">156</div>
-            <div className="stat-label">Applications</div>
-            <div className="stat-change">↑ 23 today</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">🎤</div>
-            <div className="stat-value">28</div>
-            <div className="stat-label">Interviews</div>
-            <div className="stat-change">↑ 4 today</div>
+            <div className="stat-icon">🔐</div>
+            <div className="stat-value">{stats.roles}</div>
+            <div className="stat-label">Roles</div>
+            <div className="stat-change">↑ Configured</div>
           </div>
           <div className="stat-card">
             <div className="stat-icon">✅</div>
-            <div className="stat-value">19</div>
-            <div className="stat-label">Selected</div>
-            <div className="stat-change">↑ 2 today</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">👤</div>
-            <div className="stat-value">312</div>
-            <div className="stat-label">Total Candidates</div>
-            <div className="stat-change">↑ 31 this week</div>
+            <div className="stat-value">{stats.permissions}</div>
+            <div className="stat-label">Permissions Set</div>
+            <div className="stat-change">↑ Active Rules</div>
           </div>
         </div>
 
-        {/* Content */}
+        {/* Quick Actions + System Status */}
         <div className="content-grid">
           <div className="content-card">
-            <h3 className="card-title">Recent Companies</h3>
-            {['TechCorp', 'Infosys', 'Wipro', 'TCS'].map((c, i) => (
-              <div className="list-item" key={i}>
-                <div>
-                  <div className="list-name">{c}</div>
-                  <div className="list-sub">Added recently</div>
-                </div>
-                <span className="badge badge-green">Active</span>
+            <div className="card-title">⚡ Quick Actions</div>
+            <div className="list-item">
+              <div>
+                <div className="list-name">Manage Companies</div>
+                <div className="list-sub">Add, edit or verify companies</div>
               </div>
-            ))}
+              <button
+                onClick={() => navigate('/admin/companies')}
+                style={{ background:'rgba(99,102,241,0.15)', color:'#a5b4fc', border:'1px solid rgba(99,102,241,0.3)', padding:'6px 14px', borderRadius:'6px', fontSize:'12px', cursor:'pointer' }}
+              >
+                Open →
+              </button>
+            </div>
+            <div className="list-item">
+              <div>
+                <div className="list-name">Roles & Permissions</div>
+                <div className="list-sub">Control access for each role</div>
+              </div>
+              <button
+                onClick={() => navigate('/admin/roles')}
+                style={{ background:'rgba(99,102,241,0.15)', color:'#a5b4fc', border:'1px solid rgba(99,102,241,0.3)', padding:'6px 14px', borderRadius:'6px', fontSize:'12px', cursor:'pointer' }}
+              >
+                Open →
+              </button>
+            </div>
+            <div className="list-item">
+              <div>
+                <div className="list-name">User Management</div>
+                <div className="list-sub">View and manage all users</div>
+              </div>
+              <button
+                onClick={() => navigate('/admin/users')}
+                style={{ background:'rgba(99,102,241,0.15)', color:'#a5b4fc', border:'1px solid rgba(99,102,241,0.3)', padding:'6px 14px', borderRadius:'6px', fontSize:'12px', cursor:'pointer' }}
+              >
+                Open →
+              </button>
+            </div>
           </div>
+
           <div className="content-card">
-            <h3 className="card-title">Recent Activity</h3>
-            {[
-              { text: 'New candidate registered', time: '2 min ago' },
-              { text: 'Interview scheduled', time: '10 min ago' },
-              { text: 'Job posted by Recruiter', time: '1 hr ago' },
-              { text: 'Drive created by HR', time: '2 hr ago' },
-            ].map((a, i) => (
-              <div className="list-item" key={i}>
-                <div>
-                  <div className="list-name">{a.text}</div>
-                  <div className="list-sub">{a.time}</div>
-                </div>
-                <span className="badge badge-blue">New</span>
+            <div className="card-title">🖥️ System Status</div>
+            <div className="list-item">
+              <div>
+                <div className="list-name">Backend Server</div>
+                <div className="list-sub">localhost:5000</div>
               </div>
-            ))}
+              <span className="badge badge-green">🟢 Online</span>
+            </div>
+            <div className="list-item">
+              <div>
+                <div className="list-name">Database</div>
+                <div className="list-sub">MySQL — recruitnova</div>
+              </div>
+              <span className="badge badge-green">🟢 Connected</span>
+            </div>
+            <div className="list-item">
+              <div>
+                <div className="list-name">Authentication</div>
+                <div className="list-sub">JWT Token Active</div>
+              </div>
+              <span className="badge badge-blue">🔐 Secured</span>
+            </div>
+            <div className="list-item">
+              <div>
+                <div className="list-name">Roles Configured</div>
+                <div className="list-sub">super_admin, hr_admin, recruiter, candidate</div>
+              </div>
+              <span className="badge badge-green">✅ Active</span>
+            </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   );
 };
