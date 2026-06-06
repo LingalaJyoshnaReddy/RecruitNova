@@ -60,9 +60,8 @@ const Profile = () => {
     <div className="profile-wrapper">
       <div className="profile-left">
         <div className="brand-block">
-          <div className="brand-logo"><span>⚡</span></div>
-          <h1 className="brand-name">RecruitNova</h1>
-          <p className="brand-tagline">Intelligent hiring, powered by AI</p>
+          <div className="brand-logo me-3"><span>⚡</span></div>
+          <h1 className="brand-name m-0">RecruitNova</h1>
         </div>
         <div className="profile-card-left">
           <div className="avatar-large">
