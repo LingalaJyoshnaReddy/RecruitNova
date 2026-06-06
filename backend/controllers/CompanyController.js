@@ -40,8 +40,18 @@ const addCompany = (req, res) => {
 const updateCompany = (req, res) => {
   const { id } = req.params;
   const { name, email, phone, website, industry, location, description, status } = req.body;
-  const query = 'UPDATE companies SET name=?, email=?, phone=?, website=?, industry=?, location=?, description=?, status=? WHERE id=?';
-  db.query(query, [name, email, phone, website, industry, location, description, status, id], (err) => {
+  const logo = req.file ? req.file.filename : null;
+
+  let query, params;
+  if (logo) {
+    query  = 'UPDATE companies SET name=?, email=?, phone=?, website=?, industry=?, location=?, description=?, status=?, logo=? WHERE id=?';
+    params = [name, email, phone, website, industry, location, description, status, logo, id];
+  } else {
+    query  = 'UPDATE companies SET name=?, email=?, phone=?, website=?, industry=?, location=?, description=?, status=? WHERE id=?';
+    params = [name, email, phone, website, industry, location, description, status, id];
+  }
+
+  db.query(query, params, (err) => {
     if (err) return res.status(500).json({ message: 'Server error' });
     return res.status(200).json({ message: 'Company updated successfully' });
   });

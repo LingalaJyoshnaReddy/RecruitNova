@@ -14,9 +14,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/uploads', require('express').static('uploads'));
+
 // Routes
 app.use('/api', authRoutes);
 app.use('/api/companies', companyRoutes);
+app.use('/api/roles',       require('./routes/rolesRoutes'));
+app.use('/api/permissions', require('./routes/permissionsRoutes'));
 
 // Test Route
 app.get('/', (req, res) => {
