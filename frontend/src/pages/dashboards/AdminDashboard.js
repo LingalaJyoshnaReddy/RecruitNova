@@ -77,6 +77,9 @@ const AdminDashboard = () => {
           <div className="menu-item">
             <span className="menu-icon">📊</span> Reports
           </div>
+          <div className="menu-item" onClick={() => navigate('/notifications')}>
+  <span className="menu-icon">🔔</span> Notifications
+</div>
         </div>
         <div className="sidebar-footer">
           <div className="user-info">

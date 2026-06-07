@@ -83,6 +83,9 @@ const CandidateDashboard = () => {
           <div className="menu-item" onClick={() => navigate('/change-password')}>
             <span className="menu-icon">🔐</span> Change Password
           </div>
+          <div className="menu-item" onClick={() => navigate('/notifications')}>
+  <span className="menu-icon">🔔</span> Notifications
+</div>
         </div>
         <div className="sidebar-footer">
           <div className="user-info">

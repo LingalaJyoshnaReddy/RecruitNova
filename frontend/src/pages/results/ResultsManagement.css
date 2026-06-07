@@ -1,0 +1,9 @@
+@import '../dashboards/Dashboard.css';
+@import '../drives/DrivesList.css';
+
+.results-stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.result-stat { background: #111118; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 14px 20px; display: flex; flex-direction: column; gap: 4px; min-width: 100px; }
+.rs-val { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: #f9fafb; }
+.rs-lab { font-size: 11px; color: #6b7280; text-transform: capitalize; }
+.status-select { background: #1a1a24; border: 1px solid rgba(255,255,255,0.08); color: #f9fafb; padding: 4px 8px; border-radius: 6px; font-size: 12px; outline: none; cursor: pointer; }
+.badge-purple { background: rgba(139,92,246,0.1); color: #c4b5fd; }

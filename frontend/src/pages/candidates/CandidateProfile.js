@@ -31,8 +31,8 @@ const CandidateProfile = () => {
       if (res.ok) {
         const data = await res.json();
         setFormData({
-          dob:       data.dob       || '',
-          gender:    data.gender    || '',
+         dob: data.dob ? data.dob.substring(0, 10) : '',
+         gender:    data.gender    || '',
           address:   data.address   || '',
           linkedin:  data.linkedin  || '',
           github:    data.github    || '',
@@ -62,6 +62,7 @@ const CandidateProfile = () => {
       });
       if (res.ok) {
         showToast('Profile saved successfully ✅');
+        fetchProfile();
       } else {
         showToast('Error saving profile');
       }
@@ -179,7 +180,7 @@ const CandidateProfile = () => {
                 <div className="form-group">
                   <label>Date of Birth</label>
                   <input className="form-input" type="date"
-                    value={formData.dob}
+                    value={formData.dob || ''}
                     onChange={e => setFormData({...formData, dob: e.target.value})} />
                 </div>
                 <div className="form-group">

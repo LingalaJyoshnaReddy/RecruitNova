@@ -65,8 +65,8 @@ const ATSDashboard = () => {
 
   const processedIds   = results.map(r => r.application_id);
   const unprocessed    = applications.filter(a => !processedIds.includes(a.id));
-  const avgScore       = results.length > 0
-    ? Math.round(results.reduce((sum, r) => sum + r.total_score, 0) / results.length) : 0;
+  const avgScore = results.length > 0
+  ? Math.round(results.reduce((sum, r) => sum + parseFloat(r.total_score || 0), 0) / results.length) : 0;
   const shortlisted    = results.filter(r => r.decision === 'shortlisted').length;
   const held           = results.filter(r => r.decision === 'hold').length;
   const rejected       = results.filter(r => r.decision === 'rejected').length;

@@ -21,6 +21,10 @@ import InterviewsList   from './pages/interviews/InterviewsList';
 import CandidateProfile from './pages/candidates/CandidateProfile';
 import ResumeUpload     from './pages/resumes/ResumeUpload';
 import ATSDashboard from './pages/ats/ATSDashboard';
+import Notifications from './pages/notifications/Notifications';
+import ResultsManagement from './pages/results/ResultsManagement';
+import Reports           from './pages/reports/Reports';
+import ActivityLogs      from './pages/logs/ActivityLogs';
 
 // 1. ADDED IMPORT FOR THE NEW ROLES FILE HERE
 import RolesList from './pages/admin/RolesList';
@@ -71,6 +75,10 @@ function App() {
        <Route path="/candidate/profile" element={<AuthRoute element={<CandidateProfile />} />} />
        <Route path="/resume"            element={<AuthRoute element={<ResumeUpload />} />} />
        <Route path="/ats" element={<AuthRoute element={<ATSDashboard />} />} />
+       <Route path="/notifications" element={<AuthRoute element={<Notifications />} />} />
+       <Route path="/results"  element={<AuthRoute element={<ResultsManagement />} />} />
+<Route path="/reports"  element={<ProtectedRoute element={<Reports />} allowedRole="super_admin" />} />
+<Route path="/logs"     element={<ProtectedRoute element={<ActivityLogs />} allowedRole="super_admin" />} />
       </Routes>
     </Router>
   );
