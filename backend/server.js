@@ -30,6 +30,9 @@ app.use('/api/candidates',     require('./routes/candidateRoutes'));
 app.use('/api/resumes',        require('./routes/resumeRoutes'));
 app.use('/api/ats',            require('./routes/atsRoutes'));
 app.use('/api/notifications',  require('./routes/notificationRoutes'));
+app.use('/api/results',       require('./routes/resultsRoutes'));
+app.use('/api/reports',       require('./routes/reportsRoutes'));
+app.use('/api/logs',          require('./routes/activityLogsRoutes'));
 
 // Test Route
 app.get('/', (req, res) => {

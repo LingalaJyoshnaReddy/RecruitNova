@@ -152,7 +152,10 @@ const processATS = async (req, res) => {
 
     // send notification to candidate
     await db.promise().query(
-      'INSERT INTO notifications (user_id, title, message, type) VALUES (?,?,?,?)',
+  'DELETE FROM notifications WHERE user_id=? AND title="ATS Score Updated" AND type="application"',
+  [app.candidate_user_id]);
+await db.promise().query(
+  'INSERT INTO notifications (user_id, title, message, type) VALUES (?,?,?,?)',
       [app.candidate_user_id,
        'ATS Score Updated',
        `Your application for ${app.job_title} has been processed. Score: ${totalScore}%. Decision: ${decision}`,
