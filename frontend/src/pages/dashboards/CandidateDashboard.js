@@ -74,8 +74,11 @@ const CandidateDashboard = () => {
             <span className="menu-icon">🎤</span> My Interviews
           </div>
           <span className="menu-label">Account</span>
-          <div className="menu-item" onClick={() => navigate('/profile')}>
-            <span className="menu-icon">👤</span> My Profile
+         <div className="menu-item" onClick={() => navigate('/candidate/profile')}>
+           <span className="menu-icon">👤</span> My Profile
+         </div>
+         <div className="menu-item" onClick={() => navigate('/resume')}>
+            <span className="menu-icon">📎</span> My Resume
           </div>
           <div className="menu-item" onClick={() => navigate('/change-password')}>
             <span className="menu-icon">🔐</span> Change Password

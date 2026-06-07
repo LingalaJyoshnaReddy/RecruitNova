@@ -1,0 +1,37 @@
+@import '../dashboards/Dashboard.css';
+
+.profile-section { background: #111118; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.section-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 600; color: #f9fafb; margin-bottom: 20px; }
+.section-header .section-title { margin-bottom: 0; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full-width { grid-column: 1 / -1; }
+.form-group label { font-size: 13px; color: #d1d5db; font-weight: 500; }
+.form-input { background: #1a1a24; border: 1px solid rgba(255,255,255,0.08); color: #f9fafb; padding: 10px 14px; border-radius: 8px; font-size: 14px; outline: none; width: 100%; font-family: 'DM Sans', sans-serif; transition: border-color 0.2s; }
+.form-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+.form-input::placeholder { color: #4b5563; }
+
+.skill-input-row { display: flex; gap: 10px; margin-bottom: 14px; }
+.skill-input { flex: 1; }
+.add-skill-btn { background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); padding: 10px 18px; border-radius: 8px; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.add-skill-btn:hover { background: rgba(99,102,241,0.25); }
+.skills-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tag { background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); color: #a5b4fc; padding: 6px 12px; border-radius: 20px; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+.remove-skill { background: none; border: none; color: #6b7280; cursor: pointer; font-size: 11px; padding: 0; line-height: 1; }
+.remove-skill:hover { color: #fca5a5; }
+
+.edu-card { background: #1a1a24; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 20px; margin-bottom: 14px; }
+.edu-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.edu-num { font-size: 13px; font-weight: 600; color: #a5b4fc; }
+.add-edu-btn { background: rgba(16,185,129,0.1); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.2); padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+.remove-edu-btn { background: rgba(239,68,68,0.1); color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); padding: 4px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+
+.form-actions-bottom { display: flex; gap: 12px; margin-top: 8px; }
+.save-btn { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.cancel-btn { background: rgba(255,255,255,0.05); color: #9ca3af; border: 1px solid rgba(255,255,255,0.08); padding: 12px 24px; border-radius: 8px; font-size: 14px; cursor: pointer; }
+
+.toast-msg { position: fixed; top: 24px; right: 24px; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; padding: 12px 20px; border-radius: 10px; font-size: 13px; z-index: 9999; }
+.loading-text { color: #6b7280; padding: 40px; text-align: center; }

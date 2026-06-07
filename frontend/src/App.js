@@ -18,6 +18,9 @@ import DrivesList       from './pages/drives/DrivesList';
 import JobsList         from './pages/jobs/JobsList';
 import ApplicationsList from './pages/applications/ApplicationsList';
 import InterviewsList   from './pages/interviews/InterviewsList';
+import CandidateProfile from './pages/candidates/CandidateProfile';
+import ResumeUpload     from './pages/resumes/ResumeUpload';
+import ATSDashboard from './pages/ats/ATSDashboard';
 
 // 1. ADDED IMPORT FOR THE NEW ROLES FILE HERE
 import RolesList from './pages/admin/RolesList';
@@ -65,6 +68,9 @@ function App() {
         <Route path="/jobs"         element={<AuthRoute element={<JobsList />} />} />
        <Route path="/applications" element={<AuthRoute element={<ApplicationsList />} />} />
        <Route path="/interviews"   element={<AuthRoute element={<InterviewsList />} />} />
+       <Route path="/candidate/profile" element={<AuthRoute element={<CandidateProfile />} />} />
+       <Route path="/resume"            element={<AuthRoute element={<ResumeUpload />} />} />
+       <Route path="/ats" element={<AuthRoute element={<ATSDashboard />} />} />
       </Routes>
     </Router>
   );

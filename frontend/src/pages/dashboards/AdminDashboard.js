@@ -64,6 +64,9 @@ const AdminDashboard = () => {
           <div className="menu-item" onClick={() => navigate('/applications')}>
             <span className="menu-icon">📄</span> Applications
           </div>
+          <div className="menu-item" onClick={() => navigate('/ats')}>
+  <span className="menu-icon">🤖</span> ATS Dashboard
+</div>
           <div className="menu-item" onClick={() => navigate('/interviews')}>
             <span className="menu-icon">🎤</span> Interviews
           </div>

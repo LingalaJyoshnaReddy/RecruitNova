@@ -1,0 +1,29 @@
+@import '../dashboards/Dashboard.css';
+@import '../drives/DrivesList.css';
+
+.unprocessed-section { background: #111118; border: 1px solid rgba(245,158,11,0.2); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.section-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; color: #f9fafb; margin-bottom: 14px; }
+.unprocessed-list { display: flex; flex-direction: column; gap: 10px; }
+.unprocessed-card { display: flex; justify-content: space-between; align-items: center; background: #1a1a24; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 14px 16px; }
+.unprocessed-name { font-size: 14px; font-weight: 500; color: #f9fafb; }
+.unprocessed-job { font-size: 12px; color: #6b7280; margin-top: 2px; }
+.process-btn { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.process-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.decision-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.decision-card { border-radius: 12px; padding: 20px; text-align: center; }
+.shortlisted-card { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); }
+.hold-card { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); }
+.rejected-card { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); }
+.decision-icon { font-size: 28px; margin-bottom: 8px; }
+.decision-val { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 700; color: #f9fafb; }
+.decision-lab { font-size: 14px; color: #e5e7eb; font-weight: 500; margin-top: 4px; }
+.decision-rule { font-size: 11px; color: #6b7280; margin-top: 4px; }
+
+.score-cell { display: flex; align-items: center; gap: 8px; }
+.mini-bar { width: 60px; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+.mini-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+.score-num { font-size: 12px; color: #e5e7eb; min-width: 32px; }
+.total-score { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; }
+.reprocess-btn { background: rgba(99,102,241,0.1); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.2); padding: 5px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+.reprocess-btn:disabled { opacity: 0.5; cursor: not-allowed; }
