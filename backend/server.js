@@ -25,6 +25,11 @@ app.use('/api/drives',       require('./routes/drivesRoutes'));
 app.use('/api/jobs',         require('./routes/jobsRoutes'));
 app.use('/api/applications', require('./routes/applicationsRoutes'));
 app.use('/api/interviews',   require('./routes/interviewsRoutes'));
+app.use('/uploads/resumes', require('express').static('uploads/resumes'));
+app.use('/api/candidates',     require('./routes/candidateRoutes'));
+app.use('/api/resumes',        require('./routes/resumeRoutes'));
+app.use('/api/ats',            require('./routes/atsRoutes'));
+app.use('/api/notifications',  require('./routes/notificationRoutes'));
 
 // Test Route
 app.get('/', (req, res) => {
